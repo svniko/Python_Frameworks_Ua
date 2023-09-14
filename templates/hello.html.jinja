@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hello Flask</title>
+</head>
+<body>
+    {# <h1>Home page</h1>
+    <h2>Hello, {{ name|capitalize }}. You are {{ age }} years old</h2>
+    <h2>You are a {{ prof }}</h2> #}
+
+{% if name and age and profession %}
+ <p>Hello, {{ name }}. 
+     We know that you are {{age}} 
+     years old {{profession}}</p>
+{% elif name and not age and not profession%}     
+    <p>Hello, {{ name }}. 
+       We don't know your age and profession</p> 
+{% elif name and age and not profession%} 
+ <p>Hello, {{ name }}. 
+      We know your age ({{age}}) but don't know profession</p>
+{% else %}
+  <p>Hello</p>
+{% endif %}
+
+{% set user_list = ['tom', 'jerry', 'spike'] %}
+<ul>
+    {% for user in user_list %}
+         <li><h3>{{ user|capitalize }}</h3></li>
+    {% endfor %}
+</ul>
+
+
+
+</body>
+</html>
