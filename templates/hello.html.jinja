@@ -1,11 +1,7 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hello Flask</title>
-</head>
-<body>
+{% extends "layout.jinja" %}
+{% block content %}
+
+
     {# <h1>Home page</h1>
     <h2>Hello, {{ name|capitalize }}. You are {{ age }} years old</h2>
     <h2>You are a {{ prof }}</h2> #}
@@ -31,7 +27,4 @@
     {% endfor %}
 </ul>
 
-
-
-</body>
-</html>
+{% endblock content %}

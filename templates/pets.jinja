@@ -1,0 +1,29 @@
+{% extends "layout.jinja" %}
+{% block  content%}
+<h1 >Our pets</h1>
+ {% for pet in pets %}
+  <div>
+     <h1> {{ pet.name }} </h1>
+      <p>He is a {{pet.kind }} and 
+         {{ pet.age }} years old</p>
+   </div>   
+  {% endfor %}
+
+  <table>
+    {%set k = pets[0]%}
+    <tr>
+    {% for h in k.keys()  %}
+        <th>{{h}}</th>
+    {% endfor %}
+    </tr>
+    {% for pet in pets %}
+    <tr>
+       <td>{{pet.kind}}</td>
+       <td>{{pet.name}}</td>
+       <td>{{pet.age}}</td>
+       <td>{{pet.color}}</td>
+    </tr>
+    {% endfor %}
+
+  </table>
+{% endblock  %}
