@@ -1,6 +1,15 @@
 from flask import Flask, render_template, url_for, request
+from flask_wtf import FlaskForm
+from wtforms import StringField, SubmitField
+from wtforms.validators import DataRequired
 
 app = Flask(__name__)
+app.config['SECRET_KEY'] = 'b5de70f8ba9137f8bc7e5d1df81f1e70' 
+#'super puper secret key'
+
+class FirstForm(FlaskForm):
+    name = StringField("Enter your name, please", validators=[DataRequired()])
+    submit = SubmitField("Submit")
 
 pets = [
     {
@@ -72,6 +81,15 @@ def smb():
 @app.route('/lect2/')
 def lect2():
     return render_template('lecture2.jinja')
+
+@app.route('/lect3/', methods=['GET', 'POST'])
+def lect3():
+    name = None
+    form = FirstForm()
+    if form.validate_on_submit():
+        name = form.name.data
+        form.name.data = ''
+    return render_template('lecture3.jinja', name = name, form = form )  
 
 
 
