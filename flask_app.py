@@ -1,15 +1,34 @@
-from flask import Flask, render_template, url_for, request
+from flask import Flask, render_template, url_for, request, redirect, session, flash
 from flask_wtf import FlaskForm
 from wtforms import StringField, SubmitField
 from wtforms.validators import DataRequired
+from flask_sqlalchemy import SQLAlchemy
+from datetime import datetime
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'b5de70f8ba9137f8bc7e5d1df81f1e70' 
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///user.db'
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+
+db = SQLAlchemy(app)
+
 #'super puper secret key'
 
 class FirstForm(FlaskForm):
     name = StringField("Enter your name, please", validators=[DataRequired()])
     submit = SubmitField("Submit")
+
+
+
+class Users(db.Model):
+    id = db.Column(db.Integer, 	primary_key = True)
+    name = db.Column(db.String(200), nullable=False) 
+    email = db.Column(db.String(120), nullable=False, unique = True)
+    date_added = db.Column(db.DateTime, default = datetime.utcnow)
+
+    def __repr__(self):
+        return f'<Name>: {self.name}'  
+
 
 pets = [
     {
@@ -84,12 +103,21 @@ def lect2():
 
 @app.route('/lect3/', methods=['GET', 'POST'])
 def lect3():
-    name = None
+    # name = None
     form = FirstForm()
     if form.validate_on_submit():
+        n = form.name.data
+        if len(n) < 3:
+            flash('Looks like your name is too short')
+            return redirect(url_for('lect3'))
+        session['name'] = n
         name = form.name.data
         form.name.data = ''
-    return render_template('lecture3.jinja', name = name, form = form )  
+        return redirect(url_for('lect3'))
+    return render_template('lecture3.jinja', 
+                            name = session.get('name'), 
+                            # name=name,
+                            form = form )  
 
 
 
