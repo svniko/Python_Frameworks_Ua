@@ -33,8 +33,6 @@ class UserForm(FlaskForm):
     email=StringField("Email", validators=[DataRequired()])
     submit = SubmitField('Submit')
 
-
-
 pets = [
     {
         'kind':'cat',
