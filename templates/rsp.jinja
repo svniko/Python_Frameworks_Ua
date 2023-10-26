@@ -1,0 +1,18 @@
+{% extends "layout.jinja" %}
+{% block content %}
+    <h1>Rock-Scissors-Paper</h1>
+    {% for message in get_flashed_messages()  %}
+         {{message}}
+    {% endfor %}
+
+    {% if start %}
+        <a href='{{url_for("rsp")}}'>Let's start</a>
+    {% else %}
+        <ul>
+            <li><a href="{{url_for('select', ch=0)}}"><img src="{{url_for('static', filename='/img/hand_back_fist_icon.png')}}" width="60"></a></li>
+            <li><img src="{{url_for('static', filename='/img/hand_gesture_icon.png')}}" width="60"></a></li>
+            <li><img src="{{url_for('static', filename='/img/hand_gesture_icon.png')}}" width="60"></a></li>
+        </ul>
+    {% endif %}
+
+{% endblock content %}

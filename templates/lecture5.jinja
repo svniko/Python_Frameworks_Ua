@@ -1,0 +1,36 @@
+{% extends "layout.jinja" %}
+{% block content %}
+<h1>Lecture 5</h1>
+<h2>Enter a user</h2>
+{% for category, message in get_flashed_messages(with_categories=true) %}
+    <div class="alert alert-{{category}}" role="alert">
+        {{ message }}
+        
+    </div>
+{% endfor %}
+
+<form method="POST">
+    {{form.hidden_tag()}}
+    {{form.name.label(class="form-label")}} 
+    {{form.name(class="form-control")}}
+    <br>
+    {{form.email.label(class="form-label")}} 
+    {{form.email(class="form-control")}}
+    <br>
+    {{form.submit(class="btn btn-primary")}}
+
+
+</form>
+
+<table class="table table-hover">
+{% for user in our_users  %}
+    <tr>
+        <td>{{user.id}}</td>
+        <td>{{user.name}}</td>
+        <td>{{user.email}}</td>
+    </tr>
+
+{% endfor %}
+</table>
+{% endblock content %}
+
